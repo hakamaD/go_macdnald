@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マック勉強会</title>
+</head>
+<body>
+    <h1>こんにちは、今日もマックに行くだなんて勤勉ですね</h1>
+
+    <form method="POST">
+        <label for="name">あなたは誰?</label><br>
+        <input type="text" name="name" id="name">
+        <button type="submit" onclick="myfunc()" autofocus>マックへ行く</button>
+    </form>
+
+    <h1>今日の勤勉なNTT教徒</h1>
+
+    <script>
+
+        var myfunc = function(){
+            
+            console.log = function(log){
+                document.getElementById('name').innerHTML += log + "<br>";
+            }
+        }
+
+    </script>
+    
+    <div id="name"></div>
+
+<script>
+    console.log = function(log){
+                document.getElementById('name').innerHTML += log + "<br>";
+            }
+</script>
+
+
+</body>
+</html>

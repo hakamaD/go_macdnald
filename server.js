@@ -1,5 +1,44 @@
-var http = require('http'),
-var fs = require('fs'),
-var ejs = require('ejs'),
-var qs = require('querystring')
+const http = require('http');
+const fs = require('fs');
+const qs = require('querystring');
 
+var settings = require('./settings.js');
+
+var server = http.createServer();
+
+var posts = [];
+
+function renderForm(posts, res){
+
+    var data = ejs.render(template, {
+        posts:posts
+    });
+
+    res.writeHead(200, {'content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+
+}
+
+server.on('request', function(req, res){
+
+    if(req.method ==='POST'){
+        req.data = "";
+        req.on("data", function(chunk){
+            req.data += chunk;
+        });
+
+        req.on("end", function(){
+            var query = qs.parse(req.data);
+            posts.push(query.name);
+            renderForm(posts, res);
+        });
+        
+    }else{
+        renderForm(posts, res);
+    }
+});
+
+
+server.listen(settings.port, settings.host);
+console.log("server listening...");
